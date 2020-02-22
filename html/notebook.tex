@@ -1,0 +1,1847 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Airbnb Seattle Pricing}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{project-write-a-data-science-blog}{%
+\section{Project: Write A Data Science
+Blog}\label{project-write-a-data-science-blog}}
+
+    \hypertarget{project-descrition}{%
+\subsection{Project descrition}\label{project-descrition}}
+
+This project try to analyze the Airbnb dataset from Seattle to
+understand the listing price patterns and to make price predictions for
+a listing. The results we can draw from the analysis should support the
+pricing strategy for Airbnb listing in Seattle.
+
+Explornatory data analysis are made to firstly understand the listing
+price distribution based on temporal and locational facts, and wether
+the review scores have a effect on the price.
+
+User behavior is analysis for how often they review on the same listing,
+which reflects how often the users come back to a listing they visited
+before.
+
+A regression model is trained using the dataset, the coefficients of the
+model are analyzed to define the important features that affect the
+price of the listing.
+
+Due to the fact that the prices of different listing room types (entire
+apt/ private room/ shared room) should not be compared together, i
+trained model for each type. From the coefficients of the models we can
+see that the important features for each type are different.
+
+\hypertarget{there-are-4-questions-i-try-to-answer-by-applying-data-science-analysis}{%
+\subparagraph{There are 4 questions i try to answer by applying data
+science
+analysis:}\label{there-are-4-questions-i-try-to-answer-by-applying-data-science-analysis}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Are there areas in Seattle, that have more listings than other areas?
+\item
+  Are there areas in Seattle, that the price of listings are higher than
+  other areas?
+\item
+  Which months in the year do more turists visit Seattle? How do the
+  prices of the listing react on that?
+\item
+  How do the review scores effect on the listings?
+\item
+  Do users tend to visit the same listing again?
+\item
+  Which features of a listing have effects on the listing price?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}\PY{p}{,} \PY{n}{confusion\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
+        \PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k}{as} \PY{n+nn}{gpd}
+        \PY{k+kn}{from} \PY{n+nn}{shapely}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{import} \PY{n}{mapping}\PY{p}{,} \PY{n}{shape}\PY{p}{,} \PY{n}{LineString}\PY{p}{,} \PY{n}{MultiPoint}\PY{p}{,} \PY{n}{Point}
+        \PY{k+kn}{import} \PY{n+nn}{mplleaflet}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}df\PYZus{}listing.head()}
+\end{Verbatim}
+
+
+    \hypertarget{load-data-check-data-summary-preliminarily-clean-data}{%
+\subsection{Load data, check data summary, preliminarily clean
+data}\label{load-data-check-data-summary-preliminarily-clean-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df\PYZus{}listing} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./seattle/listings.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}calendar} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./seattle/calendar.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}review} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./seattle/reviews.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}review}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} array(['id', 'listing\_url', 'scrape\_id', 'last\_scraped', 'name',
+               'summary', 'space', 'description', 'experiences\_offered',
+               'neighborhood\_overview', 'notes', 'transit', 'thumbnail\_url',
+               'medium\_url', 'picture\_url', 'xl\_picture\_url', 'host\_id',
+               'host\_url', 'host\_name', 'host\_since', 'host\_location',
+               'host\_about', 'host\_response\_time', 'host\_response\_rate',
+               'host\_acceptance\_rate', 'host\_is\_superhost', 'host\_thumbnail\_url',
+               'host\_picture\_url', 'host\_neighbourhood', 'host\_listings\_count',
+               'host\_total\_listings\_count', 'host\_verifications',
+               'host\_has\_profile\_pic', 'host\_identity\_verified', 'street',
+               'neighbourhood', 'neighbourhood\_cleansed',
+               'neighbourhood\_group\_cleansed', 'city', 'state', 'zipcode',
+               'market', 'smart\_location', 'country\_code', 'country', 'latitude',
+               'longitude', 'is\_location\_exact', 'property\_type', 'room\_type',
+               'accommodates', 'bathrooms', 'bedrooms', 'beds', 'bed\_type',
+               'amenities', 'square\_feet', 'price', 'weekly\_price',
+               'monthly\_price', 'security\_deposit', 'cleaning\_fee',
+               'guests\_included', 'extra\_people', 'minimum\_nights',
+               'maximum\_nights', 'calendar\_updated', 'has\_availability',
+               'availability\_30', 'availability\_60', 'availability\_90',
+               'availability\_365', 'calendar\_last\_scraped', 'number\_of\_reviews',
+               'first\_review', 'last\_review', 'review\_scores\_rating',
+               'review\_scores\_accuracy', 'review\_scores\_cleanliness',
+               'review\_scores\_checkin', 'review\_scores\_communication',
+               'review\_scores\_location', 'review\_scores\_value',
+               'requires\_license', 'license', 'jurisdiction\_names',
+               'instant\_bookable', 'cancellation\_policy',
+               'require\_guest\_profile\_picture',
+               'require\_guest\_phone\_verification',
+               'calculated\_host\_listings\_count', 'reviews\_per\_month'],
+              dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{availability\PYZus{}365}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accommodates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{availability\PYZus{}365}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    3818.000000
+mean      244.772656
+std       126.772526
+min         0.000000
+25\%       124.000000
+50\%       308.000000
+75\%       360.000000
+max       365.000000
+Name: availability\_365, dtype: float64
+count    3818.000000
+mean        3.349398
+std         1.977599
+min         1.000000
+25\%         2.000000
+50\%         3.000000
+75\%         4.000000
+max        16.000000
+Name: accommodates, dtype: float64
+room\_type
+Entire home/apt    233.457300
+Private room       264.280172
+Shared room        297.111111
+Name: availability\_365, dtype: float64
+
+    \end{Verbatim}
+
+    \hypertarget{convert-price-from-string-to-float}{%
+\paragraph{Convert price from string to
+float}\label{convert-price-from-string-to-float}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    INPUT}
+        \PY{l+s+sd}{    df \PYZhy{} pandas DataFrame }
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    OUTPUT}
+        \PY{l+s+sd}{    df \PYZhy{} pandas DataFrame}
+        \PY{l+s+sd}{    the price column is converted from str to float}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{n}{df}\PY{p}{[}\PY{n}{price\PYZus{}col}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{price\PYZus{}col}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{\PYZdl{},]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}listing} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}calendar} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df\PYZus{}calendar}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}    listing\_id        date available  price
+        0      241032  2016-01-04         t   85.0
+        1      241032  2016-01-05         t   85.0
+        2      241032  2016-01-06         f    NaN
+        3      241032  2016-01-07         f    NaN
+        4      241032  2016-01-08         f    NaN
+\end{Verbatim}
+            
+    \hypertarget{summary-count-of-listings-of-three-room-types}{%
+\paragraph{Summary: count of listings of three room
+types}\label{summary-count-of-listings-of-three-room-types}}
+
+room\_type Entire home/apt 2541 Private room 1160 Shared room 117
+
+    \hypertarget{combine-the-listings-with-reviews-for-later-analysing-the-review-bahavior-of-users-and-distribution-of-listing-reviews-in-three-groups-of-listings-by-listing-room_type-the-count-of-each-type}{%
+\paragraph{Combine the listings with reviews for later analysing the
+review bahavior of users, and distribution of listing reviews in three
+groups of listings by listing room\_type, the count of each
+type}\label{combine-the-listings-with-reviews-for-later-analysing-the-review-bahavior-of-users-and-distribution-of-listing-reviews-in-three-groups-of-listings-by-listing-room_type-the-count-of-each-type}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}listing\PYZus{}zip} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zipcode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{df\PYZus{}listing\PYZus{}zip} \PY{o}{=} \PY{n}{df\PYZus{}listing\PYZus{}zip}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{listing\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing\PYZus{}review} \PY{o}{=} \PY{n}{df\PYZus{}listing\PYZus{}zip}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{listing\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}review}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{listing\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}review}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+room\_type
+Entire home/apt    52465
+Private room       30870
+Shared room         1514
+Name: id, dtype: int64
+
+    \end{Verbatim}
+
+    \hypertarget{combine-the-listing-with-the-calendar-data}{%
+\paragraph{Combine the listing with the calendar
+data}\label{combine-the-listing-with-the-calendar-data}}
+
+\hypertarget{canlendar-data-is-converted-to-datetime-for-further-temporal-analysis}{%
+\subparagraph{Canlendar data is converted to datetime for further
+temporal
+analysis}\label{canlendar-data-is-converted-to-datetime-for-further-temporal-analysis}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df\PYZus{}listing\PYZus{}zip} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zipcode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{calendar\PYZus{}clean} \PY{o}{=} \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+        \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        \PY{n}{calendar\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{month}
+        \PY{n}{calendar\PYZus{}clean} \PY{o}{=} \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{calendar\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{available}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}listing\PYZus{}calendar} \PY{o}{=} \PY{n}{df\PYZus{}listing\PYZus{}zip}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{listing\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:6: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+room\_type
+Entire home/apt    592695
+Private room       305833
+Shared room         34762
+Name: price, dtype: int64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}      zipcode  longitude   latitude        room\_type  \textbackslash{}
+        3335   98118 -122.27584  47.529846  Entire home/apt   
+        3335   98118 -122.27584  47.529846  Entire home/apt   
+        3335   98118 -122.27584  47.529846  Entire home/apt   
+        3335   98118 -122.27584  47.529846  Entire home/apt   
+        3335   98118 -122.27584  47.529846  Entire home/apt   
+        
+             neighbourhood\_group\_cleansed available  price  month  
+        3335               Rainier Valley         t  120.0    2.0  
+        3335               Rainier Valley         t  120.0    3.0  
+        3335               Rainier Valley         t  120.0    3.0  
+        3335               Rainier Valley         t  120.0    3.0  
+        3335               Rainier Valley         t  120.0    3.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+m+mi}{34762}\PY{o}{/}\PY{l+m+mi}{117}
+        \PY{l+m+mi}{305833}\PY{o}{/}\PY{l+m+mi}{1160}
+        \PY{l+m+mi}{592695}\PY{o}{/}\PY{l+m+mi}{2541}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 233.25265643447463
+\end{Verbatim}
+            
+    \hypertarget{exploratery-data-analysis-on-listing-review}{%
+\section{Exploratery Data Analysis on listing
+review}\label{exploratery-data-analysis-on-listing-review}}
+
+Analyse the review behavior of users, how many reviews a particular user
+made, how often the same user make reviews on the same listing
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df\PYZus{}review\PYZus{}l} \PY{o}{=} \PY{n}{df\PYZus{}review}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reviewer\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}review\PYZus{}l} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}l}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}sns.swarmplot(x=df\PYZus{}review\PYZus{}l.index.values,y=\PYZsq{}comments\PYZsq{}, data=df\PYZus{}review\PYZus{}l)}
+        \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}l.describe()}
+        \PY{n}{df\PYZus{}review\PYZus{}l}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}              listing\_id  id  date  reviewer\_name  comments
+        reviewer\_id                                               
+        206203               67  67    67             67        67
+        15121499             32  32    32             32        32
+        5775807              19  19    19             19        19
+        2734499              19  19    19             19        19
+        29590276             18  18    18             18        18
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}lm = df\PYZus{}review\PYZus{}l.loc[df\PYZus{}review\PYZus{}l[\PYZsq{}comments\PYZsq{}]\PYZgt{}2]}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}lm[\PYZsq{}neighbourhood\PYZus{}group\PYZus{}cleansed\PYZsq{}].unique()}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}lm.sort\PYZus{}values([\PYZsq{}comments\PYZsq{}], ascending=False).plot(marker=\PYZsq{}*\PYZsq{}, linestyle=\PYZsq{}none\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}sns.swarmplot(x=df\PYZus{}review\PYZus{}lm[\PYZsq{}comments\PYZsq{}])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df\PYZus{}review\PYZus{}lmc} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}l}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}lmc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}lm[\PYZsq{}id\PYZsq{}].plot()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    reviewer\_id  listing\_id  id  date  reviewer\_name  comments
+         0       206203          67  67    67             67        67
+         1     15121499          32  32    32             32        32
+         2      5775807          19  19    19             19        19
+         3      2734499          19  19    19             19        19
+         4     29590276          18  18    18             18        18
+\end{Verbatim}
+            
+    \hypertarget{how-many-reviews-each-user-made}{%
+\paragraph{How many reviews each user
+made}\label{how-many-reviews-each-user-made}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}lmc}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    level\_0  comments  comments\_count
+         0       id         0              13
+         1       id         1           69372
+         2       id         2            4929
+         3       id         3             877
+         4       id         4             270
+         5       id         5             109
+         6       id         6              66
+         7       id         7              36
+         8       id         8              13
+         9       id         9              14
+         10      id        10               5
+         11      id        11               8
+         12      id        12               5
+         13      id        13               3
+         14      id        14               3
+         15      id        16               1
+         16      id        17               1
+         17      id        18               1
+         18      id        19               2
+         19      id        32               1
+         20      id        67               1
+\end{Verbatim}
+            
+    \hypertarget{the-description-of-number-of-the-reviews-from-the-same-user}{%
+\paragraph{The description of number of the reviews from the same
+user}\label{the-description-of-number-of-the-reviews-from-the-same-user}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df\PYZus{}review\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{6}\PY{p}{]}
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}review\PYZus{}count}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df\PYZus{}review\PYZus{}count}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{comments}\PY{p}{,}\PY{n}{row}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}count}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df\PYZus{}review\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}review\PYZus{}lmc\PYZus{}pivot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}review\PYZus{}count}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{how-many-users-make-multiple-reviews-on-the-same-listing-which-shows-how-often-a-user-visit-the-listing-again-for-how-many-times}{%
+\paragraph{How many users make multiple reviews on the same listing?
+which shows how often a user visit the listing again for how many
+times}\label{how-many-users-make-multiple-reviews-on-the-same-listing-which-shows-how-often-a-user-visit-the-listing-again-for-how-many-times}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df\PYZus{}review\PYZus{}c} \PY{o}{=} \PY{n}{df\PYZus{}review}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{listing\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reviewer\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}c.sort\PYZus{}values([\PYZsq{}comments\PYZsq{}], ascending=False)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df\PYZus{}review\PYZus{}multi} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}review\PYZus{}multi}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}multi}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}   level\_0  comments  comments\_count
+         0      id         0              16
+         1      id         1           82435
+         2      id         2             950
+         3      id         3              92
+         4      id         4              23
+         5      id         5              11
+         6      id         6               1
+         7      id         7               3
+         8      id         8               3
+         9      id        11               2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{6}\PY{p}{]}
+         \PY{n}{g2} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count}\PY{p}{)}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g2}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{comments}\PY{p}{,}\PY{n}{row}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count}\PY{o}{.}\PY{n}{comments\PYZus{}count}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}review\PYZus{}multi\PYZus{}pivot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{g2} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}review\PYZus{}repeat\PYZus{}count}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{create-geodataframe-to-analyse-distribution-of-listings-based-on-their-locations}{%
+\paragraph{Create GeoDataFrame to analyse distribution of listings based
+on their
+locations}\label{create-geodataframe-to-analyse-distribution-of-listings-based-on-their-locations}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{geo\PYZus{}df}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{lon}\PY{p}{,} \PY{n}{lat}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT}
+         \PY{l+s+sd}{    df \PYZhy{} pandas dataframe contains coordinates}
+         \PY{l+s+sd}{    lon \PYZhy{} column name of longititude}
+         \PY{l+s+sd}{    lat \PYZhy{} column name of latitude}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    OUTPUT}
+         \PY{l+s+sd}{    gdf \PYZhy{} a GeoDataframe created from df}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{gdf} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{gdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coordinates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{lon}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{n}{lat}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{gdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coordinates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{gdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coordinates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{Point}\PY{p}{)}
+             \PY{n}{gdf} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoDataFrame}\PY{p}{(}\PY{n}{gdf}\PY{p}{,} \PY{n}{geometry}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coordinates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{gdf}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{gdf\PYZus{}listing} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}gdf\PYZus{}listing.plot(column=\PYZsq{}price\PYZsq{}, cmap=\PYZsq{}Reds\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{gdf\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} array(['Entire home/apt', 'Private room', 'Shared room'], dtype=object)
+\end{Verbatim}
+            
+    \hypertarget{exploratery-data-analysis}{%
+\section{Exploratery Data Analysis}\label{exploratery-data-analysis}}
+
+\hypertarget{plot-the-features-of-the-listings-to-provide-some-insight-into-the-descriptive-statistics-of-the-data.}{%
+\subsubsection{Plot the features of the listings to provide some insight
+into the descriptive statistics of the
+data.}\label{plot-the-features-of-the-listings-to-provide-some-insight-into-the-descriptive-statistics-of-the-data.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review\PYZus{}scores\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This function drow the swarmplot of the dataframe }
+         \PY{l+s+sd}{    input: }
+         \PY{l+s+sd}{    df\PYZus{}listing: the dataFrame with listings}
+         \PY{l+s+sd}{    room\PYZus{}type: the listing with the room\PYZus{}type to be plotted}
+         \PY{l+s+sd}{    var\PYZus{}toplot: the X axis to plot}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{df\PYZus{}listing\PYZus{}apt} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n}{room\PYZus{}type}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}df\PYZus{}listing\PYZus{}apt = df\PYZus{}listing.loc[df\PYZus{}listing[\PYZsq{}room\PYZus{}type\PYZsq{}]==\PYZsq{}Private room\PYZsq{}].sort\PYZus{}values([\PYZsq{}price\PYZsq{}], ascending=False)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+             \PY{n}{chart} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{var\PYZus{}toplot}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}listing\PYZus{}apt}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{var\PYZus{}toplot}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}listing\PYZus{}apt}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{,} \PY{n}{boxprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{chart}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{chart}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}chart.set\PYZus{}yticklabels(chart.get\PYZus{}yticklabels(), fontsize=12)}
+             \PY{n}{chart}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{n}{var\PYZus{}toplot}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+             \PY{n}{chart}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+             \PY{k}{pass}
+         \PY{c+c1}{\PYZsh{}sns.swarmplot(x=\PYZsq{}zipcode\PYZsq{},y=\PYZsq{}price\PYZsq{}, data=df\PYZus{}listing\PYZus{}apt)}
+\end{Verbatim}
+
+
+    \hypertarget{the-distribution-of-listings-in-each-neighbourhood-three-room-types-are-plotted}{%
+\paragraph{The distribution of listings in each neighbourhood, three
+room types are
+plotted}\label{the-distribution-of-listings-in-each-neighbourhood-three-room-types-are-plotted}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1233: RuntimeWarning: invalid value encountered in double\_scalars
+  loval = q1 - whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1234: RuntimeWarning: invalid value encountered in double\_scalars
+  hival = q3 + whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1246: RuntimeWarning: invalid value encountered in less\_equal
+  wiskhi = np.compress(x <= hival, x)
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1253: RuntimeWarning: invalid value encountered in greater\_equal
+  wisklo = np.compress(x >= loval, x)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Private room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shared room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1233: RuntimeWarning: invalid value encountered in double\_scalars
+  loval = q1 - whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1234: RuntimeWarning: invalid value encountered in double\_scalars
+  hival = q3 + whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1246: RuntimeWarning: invalid value encountered in less\_equal
+  wiskhi = np.compress(x <= hival, x)
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1253: RuntimeWarning: invalid value encountered in greater\_equal
+  wisklo = np.compress(x >= loval, x)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{the-distribution-of-listings-according-to-their-review-scores}{%
+\paragraph{The distribution of listings according to their review
+scores}\label{the-distribution-of-listings-according-to-their-review-scores}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review\PYZus{}scores\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1233: RuntimeWarning: invalid value encountered in double\_scalars
+  loval = q1 - whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1234: RuntimeWarning: invalid value encountered in double\_scalars
+  hival = q3 + whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1246: RuntimeWarning: invalid value encountered in less\_equal
+  wiskhi = np.compress(x <= hival, x)
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1253: RuntimeWarning: invalid value encountered in greater\_equal
+  wisklo = np.compress(x >= loval, x)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Private room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review\PYZus{}scores\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1233: RuntimeWarning: invalid value encountered in double\_scalars
+  loval = q1 - whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1234: RuntimeWarning: invalid value encountered in double\_scalars
+  hival = q3 + whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1246: RuntimeWarning: invalid value encountered in less\_equal
+  wiskhi = np.compress(x <= hival, x)
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1253: RuntimeWarning: invalid value encountered in greater\_equal
+  wisklo = np.compress(x >= loval, x)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{feature\PYZus{}swarmplot}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shared room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}toplot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review\PYZus{}scores\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1233: RuntimeWarning: invalid value encountered in double\_scalars
+  loval = q1 - whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1234: RuntimeWarning: invalid value encountered in double\_scalars
+  hival = q3 + whis * stats['iqr']
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1246: RuntimeWarning: invalid value encountered in less\_equal
+  wiskhi = np.compress(x <= hival, x)
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Local\textbackslash{}conda\textbackslash{}conda\textbackslash{}envs\textbackslash{}ProfileLearning\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}\_\_init\_\_.py:1253: RuntimeWarning: invalid value encountered in greater\_equal
+  wisklo = np.compress(x >= loval, x)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plot-the-price-distribution-for-each-room-type}{%
+\paragraph{Plot the price distribution for each room
+type}\label{plot-the-price-distribution-for-each-room-type}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}   
+         \PY{n}{chart} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{whis}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{,} \PY{n}{boxprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{chart}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{chart}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{chart}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{chart}\PY{o}{.}\PY{n}{get\PYZus{}yticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} [Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, ''),
+          Text(0, 0, '')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}apt} \PY{o}{=} \PY{n}{gdf\PYZus{}listing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{gdf\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}room} \PY{o}{=} \PY{n}{gdf\PYZus{}listing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{gdf\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Private room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}shared} \PY{o}{=} \PY{n}{gdf\PYZus{}listing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{gdf\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shared room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}gdf\PYZus{}listing\PYZus{}apt.plot(column=\PYZsq{}price\PYZsq{}, cmap=\PYZsq{}Reds\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}apt} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}apt}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}gdf\PYZus{}listing\PYZus{}apt.head()}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}ave} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{p}{(}\PY{n}{gdf\PYZus{}listing\PYZus{}apt}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}ave}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}sns.swarmplot(x=gdf\PYZus{}listing\PYZus{}ave.index.values,y=\PYZsq{}price\PYZsq{}, data=gdf\PYZus{}listing\PYZus{}ave)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} count     17.000000
+         mean     148.806479
+         std       30.968747
+         min       95.780488
+         25\%      126.434211
+         50\%      153.800000
+         75\%      162.354839
+         max      232.390244
+         Name: price, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}gdf\PYZus{}listing\PYZus{}ave.plot(column=\PYZsq{}price\PYZsq{}, cmap=\PYZsq{}Reds\PYZsq{})}
+\end{Verbatim}
+
+
+    \hypertarget{analysis-of-listing-count-and-price-trend-over-time}{%
+\subsection{Analysis of listing count and price trend over
+time}\label{analysis-of-listing-count-and-price-trend-over-time}}
+
+\hypertarget{monthly-average-listing-count-and-price}{%
+\paragraph{monthly average listing count and
+price}\label{monthly-average-listing-count-and-price}}
+
+\hypertarget{daily-average-listing-count-and-price-are-calculated-and-indexed-by-months.}{%
+\paragraph{daily average listing count and price are calculated and
+indexed by
+months.}\label{daily-average-listing-count-and-price-are-calculated-and-indexed-by-months.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df1}  \PY{o}{=} \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df1}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}  \PY{o}{=} \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}                Total     Average
+         date                            
+         2016-01-04  211819.0  122.085879
+         2016-01-05  225312.0  120.681307
+         2016-01-06  220815.0  120.928258
+         2016-01-07  214823.0  120.958896
+         2016-01-08  227456.0  127.640853
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{df2} \PY{o}{=}  \PY{n}{df2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}                  price
+         date                  
+         2016-01-31  121.568409
+         2016-02-29  124.293927
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{calendar\PYZus{}clean} \PY{o}{=} \PY{n}{df\PYZus{}calendar}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{month}
+         \PY{n}{calendar\PYZus{}clean\PYZus{}m} \PY{o}{=} \PY{n}{calendar\PYZus{}clean}
+         \PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{calendar\PYZus{}clean}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{calendar\PYZus{}clean}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:6: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:8: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  
+C:\textbackslash{}Users\textbackslash{}FIXCV8D\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:9: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  if \_\_name\_\_ == '\_\_main\_\_':
+
+    \end{Verbatim}
+
+    \hypertarget{plot-of-average-monthly-price-over-the-year}{%
+\paragraph{plot of average monthly price over the
+year}\label{plot-of-average-monthly-price-over-the-year}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{calendar\PYZus{}clean}\PY{p}{)}
+         \PY{n}{calendar\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}             listing\_id available  price  month  room\_count   price\_ave
+         date                                                                  
+         2016-01-04      241032         t   85.0      1        1735  122.085879
+         2016-01-05      241032         t   85.0      1        1867  120.681307
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plot-of-average-listing-count-over-the-year}{%
+\paragraph{plot of average listing count over the
+year}\label{plot-of-average-listing-count-over-the-year}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{p}{)}\PY{c+c1}{\PYZsh{}sns.lineplot(x=calendar\PYZus{}clean.index.values, y=calendar\PYZus{}clean[\PYZsq{}room\PYZus{}count\PYZsq{}], marker=\PYZsq{}o\PYZsq{}, c=\PYZsq{}blue\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x13e010f4320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plot-of-daily-average-price-over-the-year}{%
+\paragraph{Plot of daily average price over the
+year}\label{plot-of-daily-average-price-over-the-year}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{calendar\PYZus{}clean\PYZus{}m}\PY{p}{)}\PY{c+c1}{\PYZsh{}sns.lineplot(x=calendar\PYZus{}clean.index.values, y=calendar\PYZus{}clean[\PYZsq{}room\PYZus{}count\PYZsq{}], marker=\PYZsq{}o\PYZsq{}, c=\PYZsq{}blue\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x13e04b031d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plots-of-average-price-and-count-of-listings-for-each-neighbourhoods-over-the-year}{%
+\paragraph{Plots of average price and count of listings for each
+neighbourhoods over the
+year}\label{plots-of-average-price-and-count-of-listings-for-each-neighbourhoods-over-the-year}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}gdf\PYZus{}listing\PYZus{}calendar = df\PYZus{}listing\PYZus{}calendar}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar} \PY{o}{=} \PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                                     room\_count   price\_ave   longitude  \textbackslash{}
+         month neighbourhood\_group\_cleansed                                       
+         1.0   Ballard                             3663  108.826645 -122.380895   
+               Beacon Hill                         2110   97.777725 -122.304845   
+               Capitol Hill                        9233  123.087187 -122.315938   
+               Cascade                             1222  139.289689 -122.331466   
+               Central Area                        5862  120.848516 -122.301983   
+         
+                                              latitude  
+         month neighbourhood\_group\_cleansed             
+         1.0   Ballard                       47.674560  
+               Beacon Hill                   47.567788  
+               Capitol Hill                  47.623536  
+               Cascade                       47.634683  
+               Central Area                  47.608154  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} neighbourhood\_group\_cleansed  Ballard  Beacon Hill  Capitol Hill  Cascade  \textbackslash{}
+         month                                                                       
+         1.0                              3663         2110          9233     1222   
+         2.0                              4069         2371         10319     1438   
+         3.0                              4850         2740         11603     1754   
+         4.0                              4587         2551         10409     1534   
+         5.0                              4985         2696         10987     1636   
+         
+         neighbourhood\_group\_cleansed  Central Area  Delridge  Downtown  Interbay  \textbackslash{}
+         month                                                                      
+         1.0                                   5862      1450      9484       245   
+         2.0                                   6985      1724     10869       257   
+         3.0                                   7868      1888     12279       279   
+         4.0                                   7070      1799     11013       241   
+         5.0                                   7577      1872     11203       246   
+         
+         neighbourhood\_group\_cleansed  Lake City  Magnolia  Northgate  \textbackslash{}
+         month                                                          
+         1.0                                1361      1362       1308   
+         2.0                                1416      1438       1557   
+         3.0                                1665      1529       1930   
+         4.0                                1582      1366       1777   
+         5.0                                1651      1446       1936   
+         
+         neighbourhood\_group\_cleansed  Other neighborhoods  Queen Anne  Rainier Valley  \textbackslash{}
+         month                                                                           
+         1.0                                         13262        4496            2721   
+         2.0                                         14622        5152            3185   
+         3.0                                         17047        5783            3754   
+         4.0                                         15811        5144            3218   
+         5.0                                         16814        5341            3266   
+         
+         neighbourhood\_group\_cleansed  Seward Park  University District  West Seattle  
+         month                                                                         
+         1.0                                   849                 2544          3633  
+         2.0                                   978                 2719          4111  
+         3.0                                  1138                 2989          4712  
+         4.0                                   906                 2636          4276  
+         5.0                                   940                 2818          4444  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cubehelix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}sns.lineplot(x=\PYZsq{}month\PYZsq{}, y=\PYZsq{}room\PYZus{}count\PYZsq{}, marker=\PYZsq{}o\PYZsq{}, color=\PYZsq{}red\PYZsq{}, data=calendar\PYZus{}clean, linewidth=2)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot2} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot2} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot2}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}pivot2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neighbourhood\PYZus{}group\PYZus{}cleansed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cubehelix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{calendar\PYZus{}clean}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x13e04b0dda0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{heat-maps-of-distribution-of-average-prices-listing-counts-of-neighbourhoods-on-map}{%
+\paragraph{Heat maps of distribution of average prices/ listing counts
+of neighbourhoods on
+map}\label{heat-maps-of-distribution-of-average-prices-listing-counts-of-neighbourhoods-on-map}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{p}{(}\PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{price\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}ave}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{.}\PY{n}{geometry}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{.}\PY{n}{geometry}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{textcoords}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{offset points}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{mplleaflet}\PY{o}{.}\PY{n}{display}\PY{p}{(}\PY{n}{fig} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{figure}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w} \PY{o}{=} \PY{n}{geo\PYZus{}df}\PY{p}{(}\PY{n}{gdf\PYZus{}listing\PYZus{}calendar}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gdf\PYZus{}listing\PYZus{}calendar\PYZus{}w}\PY{o}{.}\PY{n}{xs}\PY{p}{(}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Purples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{mplleaflet}\PY{o}{.}\PY{n}{display}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}                  id     scrape\_id       host\_id  host\_listings\_count  \textbackslash{}
+         count  3.818000e+03  3.818000e+03  3.818000e+03          3816.000000   
+         mean   5.550111e+06  2.016010e+13  1.578556e+07             7.157757   
+         std    2.962660e+06  0.000000e+00  1.458382e+07            28.628149   
+         min    3.335000e+03  2.016010e+13  4.193000e+03             1.000000   
+         25\%    3.258256e+06  2.016010e+13  3.275204e+06             1.000000   
+         50\%    6.118244e+06  2.016010e+13  1.055814e+07             1.000000   
+         75\%    8.035127e+06  2.016010e+13  2.590309e+07             3.000000   
+         max    1.034016e+07  2.016010e+13  5.320861e+07           502.000000   
+         
+                host\_total\_listings\_count     latitude    longitude  accommodates  \textbackslash{}
+         count                3816.000000  3818.000000  3818.000000   3818.000000   
+         mean                    7.157757    47.628961  -122.333103      3.349398   
+         std                    28.628149     0.043052     0.031745      1.977599   
+         min                     1.000000    47.505088  -122.417219      1.000000   
+         25\%                     1.000000    47.609418  -122.354320      2.000000   
+         50\%                     1.000000    47.623601  -122.328874      3.000000   
+         75\%                     3.000000    47.662694  -122.310800      4.000000   
+         max                   502.000000    47.733358  -122.240607     16.000000   
+         
+                  bathrooms     bedrooms        {\ldots}          review\_scores\_rating  \textbackslash{}
+         count  3802.000000  3812.000000        {\ldots}                   3171.000000   
+         mean      1.259469     1.307712        {\ldots}                     94.539262   
+         std       0.590369     0.883395        {\ldots}                      6.606083   
+         min       0.000000     0.000000        {\ldots}                     20.000000   
+         25\%       1.000000     1.000000        {\ldots}                     93.000000   
+         50\%       1.000000     1.000000        {\ldots}                     96.000000   
+         75\%       1.000000     2.000000        {\ldots}                     99.000000   
+         max       8.000000     7.000000        {\ldots}                    100.000000   
+         
+                review\_scores\_accuracy  review\_scores\_cleanliness  \textbackslash{}
+         count             3160.000000                3165.000000   
+         mean                 9.636392                   9.556398   
+         std                  0.698031                   0.797274   
+         min                  2.000000                   3.000000   
+         25\%                  9.000000                   9.000000   
+         50\%                 10.000000                  10.000000   
+         75\%                 10.000000                  10.000000   
+         max                 10.000000                  10.000000   
+         
+                review\_scores\_checkin  review\_scores\_communication  \textbackslash{}
+         count            3160.000000                  3167.000000   
+         mean                9.786709                     9.809599   
+         std                 0.595499                     0.568211   
+         min                 2.000000                     2.000000   
+         25\%                10.000000                    10.000000   
+         50\%                10.000000                    10.000000   
+         75\%                10.000000                    10.000000   
+         max                10.000000                    10.000000   
+         
+                review\_scores\_location  review\_scores\_value  license  \textbackslash{}
+         count             3163.000000          3162.000000      0.0   
+         mean                 9.608916             9.452245      NaN   
+         std                  0.629053             0.750259      NaN   
+         min                  4.000000             2.000000      NaN   
+         25\%                  9.000000             9.000000      NaN   
+         50\%                 10.000000            10.000000      NaN   
+         75\%                 10.000000            10.000000      NaN   
+         max                 10.000000            10.000000      NaN   
+         
+                calculated\_host\_listings\_count  reviews\_per\_month  
+         count                     3818.000000        3191.000000  
+         mean                         2.946307           2.078919  
+         std                          5.893029           1.822348  
+         min                          1.000000           0.020000  
+         25\%                          1.000000           0.695000  
+         50\%                          1.000000           1.540000  
+         75\%                          2.000000           3.000000  
+         max                         37.000000          12.150000  
+         
+         [8 rows x 31 columns]
+\end{Verbatim}
+            
+    \hypertarget{price-prediction}{%
+\subsection{Price Prediction}\label{price-prediction}}
+
+\hypertarget{this-section-clean-the-data-and-prepare-the-training-and-testing-datasets-to-train-a-regression-model-to-predict-the-price-of-a-listing.}{%
+\subsubsection{This section clean the data and prepare the training and
+testing datasets to train a regression model to predict the price of a
+listing.}\label{this-section-clean-the-data-and-prepare-the-training-and-testing-datasets-to-train-a-regression-model-to-predict-the-price-of-a-listing.}}
+
+\hypertarget{models-are-trained-for-each-room-type.}{%
+\paragraph{Models are trained for each room
+type.}\label{models-are-trained-for-each-room-type.}}
+
+\hypertarget{the-coefficients-of-the-model-are-analyzed-to-define-the-important-features-that-affect-the-price-of-the-listing.}{%
+\paragraph{the coefficients of the model are analyzed to define the
+important features that affect the price of the
+listing.}\label{the-coefficients-of-the-model-are-analyzed-to-define-the-important-features-that-affect-the-price-of-the-listing.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{rate\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{rate\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT}
+         \PY{l+s+sd}{    df \PYZhy{} pandas DataFrame }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    OUTPUT}
+         \PY{l+s+sd}{    df \PYZhy{} pandas DataFrame}
+         \PY{l+s+sd}{    the rate column is converted from str to float}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{df}\PY{p}{[}\PY{n}{rate\PYZus{}col}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{rate\PYZus{}col}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{,]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k}{def} \PY{n+nf}{clean\PYZus{}data}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT}
+         \PY{l+s+sd}{    df \PYZhy{} pandas dataframe }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    OUTPUT}
+         \PY{l+s+sd}{    X \PYZhy{} A matrix holding all of the variables you want to consider when predicting the response}
+         \PY{l+s+sd}{    y \PYZhy{} the corresponding response vector}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Perform to obtain the correct X and y objects}
+         \PY{l+s+sd}{    This function cleans df using the following steps to produce X and y:}
+         \PY{l+s+sd}{    1. Drop all the rows with no salaries}
+         \PY{l+s+sd}{    2. Create X as all the columns that are not the Salary column}
+         \PY{l+s+sd}{    3. Create y as the Salary column}
+         \PY{l+s+sd}{    4. Drop the Salary, Respondent, and the ExpectedSalary columns from X}
+         \PY{l+s+sd}{    5. For each numeric variable in X, fill the column with the mean value of the column.}
+         \PY{l+s+sd}{    6. Create dummy columns for all the categorical variabl    }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{df} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{monthly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaning\PYZus{}fee}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{security\PYZus{}deposit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{rate\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{rate\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{host\PYZus{}acceptance\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{rate\PYZus{}str2num}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{rate\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{host\PYZus{}response\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Drop rows with missing price values}
+             \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Drop columns with a constant value}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last\PYZus{}scraped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scrape\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jurisdiction\PYZus{}names}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{host\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smart\PYZus{}location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{monthly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Drop empty rows}
+             \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Fill numeric columns with the mean}
+             \PY{n}{num\PYZus{}vars} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+             \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{num\PYZus{}vars}\PY{p}{:}
+                 \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} find the categorical columns, separate them into dummy or too many unique values   }
+             \PY{n}{cat\PYZus{}vars} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+             \PY{n}{nondummy\PYZus{}var} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{dummy\PYZus{}var} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{cat\PYZus{}vars}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{6}\PY{p}{:}
+                     \PY{n}{nondummy\PYZus{}var} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{dummy\PYZus{}var} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}       
+             \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{nondummy\PYZus{}var}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}df[var] = pd.isnull(df[var])}
+                 \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{k}{for} \PY{n}{var} \PY{o+ow}{in}  \PY{n}{cat\PYZus{}vars}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} for each cat add dummy var, drop original column}
+                 \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{n}{var}\PY{p}{,} \PY{n}{prefix\PYZus{}sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop\PYZus{}first}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}model}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT}
+         \PY{l+s+sd}{    df \PYZhy{} pandas dataframe }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    OUTPUT}
+         \PY{l+s+sd}{    X\PYZus{}train \PYZhy{} A matrix holding all of the variables you want to consider when predicting the response}
+         \PY{l+s+sd}{    y\PYZus{}train \PYZhy{} the corresponding response vector}
+         \PY{l+s+sd}{    X\PYZus{}test \PYZhy{} }
+         \PY{l+s+sd}{    y\PYZus{}test \PYZhy{} }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{}Split into explanatory and response variables}
+             \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Split into train and test}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)} 
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{lm\PYZus{}model} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{c+c1}{\PYZsh{} Instantiate}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{lm\PYZus{}model}\PY{p}{)}
+             \PY{n}{lm\PYZus{}model} \PY{o}{=} \PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)} \PY{c+c1}{\PYZsh{}Fit}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{lm\PYZus{}model}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{}Predict and score the model}
+             \PY{n}{y\PYZus{}test\PYZus{}preds} \PY{o}{=} \PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} 
+         
+             \PY{c+c1}{\PYZsh{}Rsquared and y\PYZus{}test}
+             \PY{n}{test\PYZus{}score} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}preds}\PY{p}{)}\PY{c+c1}{\PYZsh{}r2\PYZus{}score}
+             \PY{n}{train\PYZus{}score} \PY{o}{=} \PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{length\PYZus{}y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{c+c1}{\PYZsh{}num in y\PYZus{}test}
+             
+             \PY{k}{return} \PY{n}{test\PYZus{}score}\PY{p}{,} \PY{n}{train\PYZus{}score}\PY{p}{,} \PY{n}{lm\PYZus{}model}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k}{def} \PY{n+nf}{coef\PYZus{}weights}\PY{p}{(}\PY{n}{coefficients}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{lm\PYZus{}model}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    INPUT:}
+         \PY{l+s+sd}{    coefficients \PYZhy{} the coefficients of the linear model }
+         \PY{l+s+sd}{    X\PYZus{}train \PYZhy{} the training data, so the column names can be used}
+         \PY{l+s+sd}{    OUTPUT:}
+         \PY{l+s+sd}{    coefs\PYZus{}df \PYZhy{} a dataframe holding the coefficient, estimate, and abs(estimate)}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Provides a dataframe that can be used to understand the most influential coefficients}
+         \PY{l+s+sd}{    in a linear model by providing the coefficient estimates along with the name of the }
+         \PY{l+s+sd}{    variable attached to the coefficient.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{coefs\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+             \PY{n}{coefs\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{est\PYZus{}int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+             \PY{n}{coefs\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+             \PY{n}{coefs\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abs\PYZus{}coefs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{)}
+             \PY{n}{coefs\PYZus{}df} \PY{o}{=} \PY{n}{coefs\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abs\PYZus{}coefs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{k}{return} \PY{n}{coefs\PYZus{}df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{k}{def} \PY{n+nf}{RF\PYZus{}regress}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}listing\PYZus{}apt} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n}{room\PYZus{}type}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}listing\PYZus{}clean} \PY{o}{=} \PY{n}{clean\PYZus{}data}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}apt}\PY{p}{)}
+             \PY{n}{test\PYZus{}score}\PY{p}{,} \PY{n}{train\PYZus{}score}\PY{p}{,} \PY{n}{lm\PYZus{}model}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}model}\PY{p}{(}\PY{n}{df\PYZus{}listing\PYZus{}clean}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}Use the function}
+             \PY{n}{coef\PYZus{}df} \PY{o}{=} \PY{n}{coef\PYZus{}weights}\PY{p}{(}\PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{lm\PYZus{}model}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}A quick look at the top results}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{coef\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}score}\PY{p}{,} \PY{n}{train\PYZus{}score}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{RF\PYZus{}regress}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire home/apt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(2541, 76)
+(2541, 76)
+(2541, 112)
+(1778, 111) 763
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+                                   est\_int     coefs  abs\_coefs
+5                                bathrooms  0.411491   0.411491
+6                                 bedrooms  0.274318   0.274318
+10                            cleaning\_fee  0.120342   0.120342
+4                             accommodates  0.092895   0.092895
+9                         security\_deposit  0.062888   0.062888
+27                       reviews\_per\_month  0.011073   0.011073
+60   host\_response\_time\_within a few hours  0.005084   0.005084
+17                        availability\_365  0.003645   0.003645
+19                    review\_scores\_rating  0.002815   0.002815
+11                         guests\_included  0.002605   0.002605
+12                          minimum\_nights  0.001817   0.001817
+7                                     beds  0.001541   0.001541
+21               review\_scores\_cleanliness  0.001182   0.001182
+16                         availability\_90  0.001102   0.001102
+13                          maximum\_nights  0.000765   0.000765
+59         host\_response\_time\_within a day  0.000735   0.000735
+2                      host\_listings\_count  0.000718   0.000718
+0                       host\_response\_rate  0.000717   0.000717
+102                     instant\_bookable\_f  0.000650   0.000650
+47                    xl\_picture\_url\_False  0.000637   0.000637
+0.4016861274194049 0.572026197384961
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{RF\PYZus{}regress}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Private room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1160, 76)
+(1160, 76)
+(1160, 107)
+(812, 106) 348
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+                              est\_int     coefs  abs\_coefs
+11                    guests\_included  0.131882   0.131882
+16                    availability\_90  0.126588   0.126588
+10                       cleaning\_fee  0.105508   0.105508
+17                   availability\_365  0.105005   0.105005
+4                        accommodates  0.060283   0.060283
+14                    availability\_30  0.055933   0.055933
+27                  reviews\_per\_month  0.038538   0.038538
+9                    security\_deposit  0.036755   0.036755
+5                           bathrooms  0.036224   0.036224
+0                  host\_response\_rate  0.032488   0.032488
+31                       summary\_True  0.029653   0.029653
+26     calculated\_host\_listings\_count  0.028826   0.028826
+82                    bed\_type\_Airbed  0.027130   0.027130
+77                       zipcode\_True  0.026293   0.026293
+18                  number\_of\_reviews  0.024478   0.024478
+30                      summary\_False  0.017003   0.017003
+59  host\_response\_time\_within an hour  0.012549   0.012549
+92                 first\_review\_False  0.009409   0.009409
+13                     maximum\_nights  0.007916   0.007916
+21          review\_scores\_cleanliness  0.007554   0.007554
+0.0823852324377361 0.2533792017395078
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{RF\PYZus{}regress}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{room\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shared room}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(117, 75)
+(117, 75)
+(117, 105)
+(81, 104) 36
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=3,
+                      max\_features='auto', max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, n\_estimators=100,
+                      n\_jobs=None, oob\_score=False, random\_state=0, verbose=0,
+                      warm\_start=False)
+                           est\_int     coefs  abs\_coefs
+1             host\_acceptance\_rate  0.502711   0.502711
+16                availability\_365  0.068336   0.068336
+8                 security\_deposit  0.055131   0.055131
+14                 availability\_60  0.044483   0.044483
+13                 availability\_30  0.043211   0.043211
+15                 availability\_90  0.038781   0.038781
+69        host\_identity\_verified\_t  0.030599   0.030599
+68        host\_identity\_verified\_f  0.030235   0.030235
+17               number\_of\_reviews  0.018544   0.018544
+10                 guests\_included  0.018525   0.018525
+3        host\_total\_listings\_count  0.009197   0.009197
+9                     cleaning\_fee  0.009150   0.009150
+60             host\_is\_superhost\_t  0.009028   0.009028
+26               reviews\_per\_month  0.008481   0.008481
+25  calculated\_host\_listings\_count  0.008069   0.008069
+12                  maximum\_nights  0.007493   0.007493
+18            review\_scores\_rating  0.005694   0.005694
+4                     accommodates  0.005378   0.005378
+50                host\_location\_US  0.005343   0.005343
+38                      notes\_True  0.005110   0.005110
+0.2619005174343265 0.7097446654414383
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{lm\PYZus{}model}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-57-fff480128332> in <module>()
+    ----> 1 roc\_auc\_score(y\_test, lm\_model.predict\_proba(X\_test)[:,1])
+    
+
+        NameError: name 'y\_test' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}listing\PYZus{}clean} \PY{o}{=} \PY{n}{clean\PYZus{}data}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cat\PYZus{}vars} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+        \PY{n}{num\PYZus{}vars} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+        \PY{n}{cat\PYZus{}vars2} \PY{o}{=} \PY{n}{df\PYZus{}listing}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{exclude}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cat\PYZus{}vars}\PY{p}{)}\PY{p}{,} \PY{n}{cat\PYZus{}vars}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num\PYZus{}vars}\PY{p}{)}\PY{p}{,} \PY{n}{num\PYZus{}vars}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cat\PYZus{}vars2}\PY{p}{)}\PY{p}{,} \PY{n}{cat\PYZus{}vars2}\PY{p}{)}
+        
+        \PY{n}{nondummy\PYZus{}var} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{dummy\PYZus{}var} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{cat\PYZus{}vars}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{10}\PY{p}{:}
+                \PY{n}{nondummy\PYZus{}var} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{dummy\PYZus{}var} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{]}    
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nondummy\PYZus{}var}\PY{p}{,} \PY{n}{dummy\PYZus{}var}\PY{p}{)}
+        
+        \PY{n}{df\PYZus{}listing\PYZus{}clean}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    type(df\_listing{[}`host\_id'{]}{[}1{]})
+
+dummy\_vars = {[}`listing\_url', `last\_scraped', `name', `summary',
+`space', `description', `experiences\_offered',
+`neighborhood\_overview', `notes', `transit', `thumbnail\_url',
+`medium\_url', `picture\_url', `xl\_picture\_url', `host\_url',
+`host\_name', `host\_since', `host\_location', `host\_about',
+`host\_response\_time', `host\_response\_rate',
+`host\_acceptance\_rate', `host\_is\_superhost', `host\_thumbnail\_url',
+`host\_picture\_url', `host\_neighbourhood', `host\_verifications',
+`host\_has\_profile\_pic', `host\_identity\_verified', `street',
+`neighbourhood', `neighbourhood\_cleansed',
+`neighbourhood\_group\_cleansed', `city', `state', `zipcode', `market',
+`smart\_location', `country\_code', `country', `is\_location\_exact',
+`property\_type', `room\_type', `bed\_type', `amenities',
+`weekly\_price', `monthly\_price', `security\_deposit', `cleaning\_fee',
+`extra\_people', `calendar\_updated', `has\_availability',
+`calendar\_last\_scraped', `first\_review', `last\_review',
+`requires\_license', `jurisdiction\_names', `instant\_bookable',
+`cancellation\_policy', `require\_guest\_profile\_picture',
+`require\_guest\_phone\_verification'{]} dummy\_vars =
+{[}`listing\_url', `name', `summary', `space', `description',
+`thumbnail\_url', `medium\_url', `picture\_url', `xl\_picture\_url',
+`host\_url', `host\_name', `host\_location', `host\_about',
+`host\_response\_time', `experiences\_offered' `host\_response\_rate',
+`host\_acceptance\_rate', `host\_is\_superhost', `host\_thumbnail\_url',
+`host\_picture\_url', `host\_neighbourhood', `host\_verifications',
+`host\_has\_profile\_pic', `host\_identity\_verified', `neighbourhood',
+`neighbourhood\_cleansed', `neighbourhood\_group\_cleansed', `city',
+`state', `zipcode', `market', `smart\_location', `country\_code',
+`country', `is\_location\_exact', `property\_type', `room\_type',
+`bed\_type', `amenities', `weekly\_price', `monthly\_price',
+`security\_deposit', `cleaning\_fee', `extra\_people',
+`calendar\_updated', `has\_availability', `calendar\_last\_scraped',
+`first\_review', `last\_review', `requires\_license',
+`jurisdiction\_names', `instant\_bookable', `cancellation\_policy',
+`require\_guest\_profile\_picture',
+`require\_guest\_phone\_verification'{]}
+
+not\_sure = {[}`last\_scraped' `host\_since', `neighborhood\_overview',
+`notes', `street', `transit'{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}listing} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{monthly\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}listing} \PY{o}{=} \PY{n}{price\PYZus{}str2num}\PY{p}{(}\PY{n}{df\PYZus{}listing}\PY{p}{,} \PY{n}{price\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaning\PYZus{}fee}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}listing}\PY{p}{[}\PY{n}{cat\PYZus{}vars}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Random Forest}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
